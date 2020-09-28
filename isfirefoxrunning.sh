@@ -1,8 +1,8 @@
 #!/bin/bash
 
-COMMAND=$(ps ax | grep firefox | awk '{ print $1}' | head -n -1)
+COMMAND=$(ps ax | grep firefox | grep -v grep | grep -v *sh | awk '{$1=$1;print $1}')
 
-if [[ -z "$COMMAND"  &&  "$COMMAND" != " " ]];
+if [[ -z "$COMMAND" ]] ;
 then
 	echo 'Firefox isnt running
 	let me just run it for you!'
@@ -12,10 +12,10 @@ then
 else
 	read -p 'Firefox is running. Do you want kill it?(Type yes or no) [no] ' answer
 	answer=${answer:-"no"}
-	echo $answer
 	if [[ $answer == "yes" ]];
 	then
-		echo 'Jeez! OK! Killing it'
+		mplayer ohjeez.ogg &> /dev/null
+		echo 'Oh Jeez! OK! Killing it'
 		kill -15 $COMMAND
 		exit 0
 	else
